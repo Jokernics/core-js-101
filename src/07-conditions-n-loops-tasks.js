@@ -495,8 +495,50 @@ function getMatrixProduct(/* m1, m2 */) {
  *    [    ,   ,    ]]
  *
  */
-function evaluateTicTacToePosition(/* position */) {
-  throw new Error('Not implemented');
+function evaluateTicTacToePosition(position) {
+  const winCells = [
+    ['00', '01', '02'],
+    ['10', '11', '12'],
+    ['20', '21', '22'],
+    ['00', '10', '20'],
+    ['01', '11', '21'],
+    ['02', '12', '22'],
+    ['00', '11', '22'],
+    ['02', '11', '20'],
+  ];
+  let winner;
+  const x = [];
+  const nollik = [];
+  for (let i = 0; i < position.length; i++) {
+    for (let j = 0; j < position[i].length; j++) {
+      const el = position[i][j];
+      switch (el) {
+        case 'X':
+          x.push([i] + [j]);
+          break;
+        case '0':
+          nollik.push([i] + [j]);
+          break;
+        default:
+          break;
+      }
+    }
+  }
+  winCells.forEach((arrCell) => {
+    let count = 0;
+    x.forEach((pos) => {
+      if (arrCell.includes(pos)) count += 1;
+      if (count >= 3) winner = 'X';
+    });
+  });
+  winCells.forEach((arrCell) => {
+    let count = 0;
+    nollik.forEach((pos) => {
+      if (arrCell.includes(pos)) count += 1;
+      if (count >= 3) winner = '0';
+    });
+  });
+  return winner;
 }
 
 
